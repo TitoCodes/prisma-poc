@@ -22,7 +22,7 @@ const updatePassword = async (updatePassword: UpdatePasswordDto, req: any) => {
   const { email, oldPassword, newPassword } = updatePassword;
   await tokenHelper
     .decodeToken(req)
-    .then(async (decoded) => {
+    .then(async (decoded:any) => {
       if (decoded.email === email) {
         const user = await prisma.user.findUnique({
           where: { email: String(email) },
