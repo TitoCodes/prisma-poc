@@ -3,8 +3,6 @@ import { SignUpDto } from "../dto/user/signUp.Dto";
 import bcrypt from "bcrypt";
 import { UpdatePasswordDto } from "../dto/user/updatePassword.Dto";
 import tokenHelper from "../helper/token.helper";
-import errorHandler from "../middleware/errorHandler";
-import { resolve } from "path";
 
 const prisma = new PrismaClient();
 const saltRounds = 10;
@@ -23,7 +21,7 @@ const getUsers = async () => {
 const updatePassword = async (updatePassword: UpdatePasswordDto, req: any) => {
   const { email, oldPassword, newPassword } = updatePassword;
   await tokenHelper
-    .isEmailSameWithLogin(req)
+    .decodeToken(req)
     .then(async (decoded) => {
       if (decoded.email === email) {
         const user = await prisma.user.findUnique({

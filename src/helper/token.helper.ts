@@ -4,7 +4,7 @@ const getAudience = () => {
   return process.env.AUDIENCE?.split(";");
 };
 
-const isEmailSameWithLogin = async (req: any) => {
+const decodeToken = async (req: any) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
@@ -12,4 +12,4 @@ const isEmailSameWithLogin = async (req: any) => {
   }
 };
 
-export default { getAudience, isEmailSameWithLogin };
+export default { getAudience, decodeToken };
